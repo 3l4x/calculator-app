@@ -1,19 +1,21 @@
-import { useMemo, memo } from 'react';
+import { useMemo, useContext } from 'react';
 import { Grid, Segment } from 'semantic-ui-react';
 import { operations, nums } from '../../constants/calculator';
 import Button from './Button';
-const ButtonContainer = ({ addToInput, triggerCalculation,input, setInput,setError }) => {
-    //add usecallback here
+import { CalculatorContext } from '../../providers/CalculatorContext';
+const ButtonContainer = () => {
+    const {input,addToInput,triggerCalculation,resetAll} = useContext(CalculatorContext);
     const buttons = useMemo(() => {
-        const operationsButtons = operations.map(operation => (
+        const mergedArr = operations.concat(nums);
+        const commonBtns = mergedArr.map(calcBtnText => (
             <Button
                 onClick={addToInput}
-                key={operation}
+                key={calcBtnText}
                 size={'huge'}
                 fluid={false}
-                innerText={operation}
+                innerText={calcBtnText}
             />
-        ))
+        ))/*
         const numsButtons = nums.map(number => (
             <Button
                 onClick={addToInput}
@@ -22,13 +24,10 @@ const ButtonContainer = ({ addToInput, triggerCalculation,input, setInput,setErr
                 fluid={false}
                 innerText={number}
             />
-        ))
+        )) */
         const resetBtn = (
             <Button
-                onClick={()=>{
-                    setInput('');
-                    setError('');
-                }}
+                onClick={resetAll}
                 key={'reset'}
                 size={'huge'}
                 fluid={false}
@@ -46,8 +45,8 @@ const ButtonContainer = ({ addToInput, triggerCalculation,input, setInput,setErr
             />
         )
 
-        return [...operationsButtons, ...numsButtons, resetBtn, calculateBtn]
-    }, [operations, nums,input,setError,setError])
+        return [...commonBtns, resetBtn, calculateBtn]
+    }, [operations, nums,input])
     return (
         <Segment>
             <Grid padded columns={4}  >
