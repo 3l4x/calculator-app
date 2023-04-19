@@ -5,11 +5,22 @@ const MainLayout = () => {
     return (
         <>
             <nav></nav>
-            <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-                <Grid.Column style={{ maxWidth: 450 }}>
+            <main
+                style={{
+                    height: '100vh',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}
+            >
+                <Grid
+                    textAlign='center'
+                    verticalAlign='top'
+                    columns={2}
+                >
                     <Outlet />
-                </Grid.Column>
-            </Grid>
+                </Grid>
+            </main>
             <footer></footer>
         </>
     )
