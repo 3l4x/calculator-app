@@ -1,14 +1,17 @@
-import { Button as SemanticButton } from "semantic-ui-react"
-const Button = ({size, fluid, innerText,style,color = 'teal'}) => {
+import { Button as SemanticButton,Grid } from "semantic-ui-react"
+const Button = ({size, onClick, fluid, innerText,color = 'teal'}) => {
   return (
-    <SemanticButton
-        color={color}
-        fluid={fluid}
-        size={size}
-        style={{...style,margin: 0}}
-    >
-        {innerText}
-    </SemanticButton>
+    <Grid.Column textAlign='center'>
+        <SemanticButton
+            style={{margin: 0}}
+            color={color}
+            fluid={fluid}
+            size={size}
+            onClick={onClick}
+        >
+            {innerText}
+        </SemanticButton>
+    </Grid.Column>
   )
 }
 

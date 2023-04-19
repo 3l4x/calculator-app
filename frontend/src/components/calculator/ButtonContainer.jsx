@@ -2,27 +2,54 @@ import { useMemo, memo } from 'react';
 import { Grid, Segment } from 'semantic-ui-react';
 import { operations, nums } from '../../constants/calculator';
 import Button from './Button';
-const ButtonContainer = () => {
+const ButtonContainer = ({ addToInput, triggerCalculation,input, setInput,setError }) => {
+    //add usecallback here
     const buttons = useMemo(() => {
         const operationsButtons = operations.map(operation => (
-            <Grid.Column key={operation} textAlign='center' style={{ padding: 0 }}>
-                <Button size={'huge'} fluid={false} innerText={operation} />
-            </Grid.Column>
+            <Button
+                onClick={addToInput}
+                key={operation}
+                size={'huge'}
+                fluid={false}
+                innerText={operation}
+            />
         ))
         const numsButtons = nums.map(number => (
-            <Grid.Column key={number} textAlign='center'>
-                <Button  size={'huge'} fluid={false} innerText={number} />
-            </Grid.Column>
+            <Button
+                onClick={addToInput}
+                key={number}
+                size={'huge'}
+                fluid={false}
+                innerText={number}
+            />
         ))
-        const calculateBtn = <Grid.Column key={'calculate'} textAlign='center'>
-            <Button  color={'grey'} size={'huge'} style={{paddingRight: 45}} fluid={false} innerText={'Calculate!'} />
-        </Grid.Column>
+        const resetBtn = (
+            <Button
+                onClick={()=>{
+                    setInput('');
+                    setError('');
+                }}
+                key={'reset'}
+                size={'huge'}
+                fluid={false}
+                innerText={'C'}
+            />
+        )
+        const calculateBtn = (
+            <Button
+                onClick={triggerCalculation}
+                key={'calculate'}
+                color={'grey'}
+                size={'huge'}
+                fluid={false}
+                innerText={'='}
+            />
+        )
 
-        return [...operationsButtons, ...numsButtons, calculateBtn]
-    }, [operations, nums])
+        return [...operationsButtons, ...numsButtons, resetBtn, calculateBtn]
+    }, [operations, nums,input,setError,setError])
     return (
         <Segment>
-
             <Grid padded columns={4}  >
                 {buttons}
             </Grid>
@@ -30,4 +57,4 @@ const ButtonContainer = () => {
     )
 }
 
-export default memo(ButtonContainer)
+export default ButtonContainer
