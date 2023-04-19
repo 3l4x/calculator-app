@@ -1,6 +1,8 @@
+import Calculator from "../components/calculator/Calculator"
+
 const HomeScreen = () => {
   return (
-    <div>HomeScreen</div>
+      <Calculator />
   )
 }
 
