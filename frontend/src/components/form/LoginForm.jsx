@@ -2,26 +2,36 @@ import { Form, Button, Segment } from 'semantic-ui-react';
 import { useLoginMutation } from '../../redux/auth/authApiSlice';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '../../redux/auth/authSlice';
 const LoginForm = () => {
     const [login, { isLoading }] = useLoginMutation();
     const [loginError, setLoginError] = useState(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     return (
         <Form size='large'
             onSubmit={async (e) => {
-                const {email,password} = new FormData(e.target);
+                const formData = new FormData(e.target);
+                const email = formData.get('email');
+                const password = formData.get('password');
                 await login({
-                    email,password
+                    email, password
                 }).unwrap()
-                    .then(() => {
-                        setShowSuccessMsg(true);
+                    .then((response) => {
+                        dispatch(
+                            setCredentials({
+                                user: email,
+                                accessToken : response?.accessToken
+                            })
+                        );
                         setTimeout(() => {
                             navigate('/');
                         }, 2000)
                     })
                     .catch((err) => {
                         if (!err.status) {
-                            /* console.log(err); */
+                            console.log(err);
                             setLoginError('Internal server error');
                         }
                         else if (err.status === 422) {

@@ -9,12 +9,13 @@ const RegisterForm = () => {
     return (
         <Form size='large'
             onSubmit={async (e) => {
-                const {email,password} = new FormData(e.target);
+                const formData = new FormData(e.target);
+                const email = formData.get('email');
+                const password = formData.get('password');
                 await register({
                     email,password
                 }).unwrap()
                     .then(() => {
-                        setShowSuccessMsg(true);
                         setTimeout(() => {
                             navigate('/login');
                         }, 2000)
