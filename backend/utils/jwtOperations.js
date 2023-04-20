@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const { User, RefreshToken } = require('../models');
 
 //exparation times
-const ACCESS_TOKEN_EXPIRATION = '20s';
+const ACCESS_TOKEN_EXPIRATION = '40s';
 const REFRESH_TOKEN_EXPIRATION = '30d';
 
 
