@@ -2,7 +2,7 @@ import { Segment, Button, Header, Form, Label, Divider } from "semantic-ui-react
 import { selectUser } from "../../redux/auth/authSlice"
 import { useSelector } from "react-redux"
 import { useGetNumberQuery, usePostNumberMutation } from "../../redux/calculator/calculatorApiSlice"
-import { useCallback, useContext, useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import { CalculatorContext } from "../../providers/CalculatorContext"
 const NumberManager = () => {
     const clearMessages = useCallback(() => {
@@ -20,11 +20,18 @@ const NumberManager = () => {
 
     //query
     const { data: number, isFetching, error: getError } = useGetNumberQuery(null, {
-        skip: !user
+        skip: !user,
+
     });
 
+    useEffect(()=>{
+        console.log(number);
+    },[number])
+
     //mutation
-    const [postNumber, { isLoading }] = usePostNumberMutation();
+    const [postNumber, { isLoading }] = usePostNumberMutation({
+        refetchQuereies: [{query : useGetNumberQuery}]
+    });
 
     return (
         <>

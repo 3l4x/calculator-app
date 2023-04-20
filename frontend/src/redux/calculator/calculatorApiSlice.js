@@ -8,8 +8,7 @@ const calculatorApiSlice = apiSlice.injectEndpoints({
                 url: 'number/',
                 method: 'get',
             }),
-            providesTags: 'Number',
-            keepUnusedDataFor: 20, //20sec
+            providesTags: ['Number'],
             transformResponse: response => {
                 return response?.message
             },
@@ -22,7 +21,7 @@ const calculatorApiSlice = apiSlice.injectEndpoints({
                     calcNumber: expression
                 }
             }),
-            invalidatesTags: 'Number',
+            invalidatesTags: ['Number'],
         }),
     })
 
