@@ -15,17 +15,19 @@ numberController.getNumber = async (req, res) => {
 
 numberController.postNumber = async(req, res) => {
     if(!req.auth?.sub) return res.status(StatusCodes.UNAUTHORIZED).json({message: 'Unauthorized'});
-    if(!req.body.calcNumber) return res.status(StatusCodes.BAD_REQUEST).json({message: 'Bad request'});
+    if(!req.body?.calcNumber) return res.status(StatusCodes.BAD_REQUEST).json({message: 'Bad request'});
     const user = await User.findOne({ where: { email: req.auth?.sub } })
     if (!user)
         return res.status(StatusCodes.NOT_FOUND).json({ message: 'User not found' });
 
     //validating using mathjs
     try{
-        const result = evaluate(req.body.calcNumber);
-        user.calcNumber = result;
+        const strExpression = String(req.body.calcNumber);
+        const result = evaluate(strExpression);
+        user.calcNumber = strExpression;
         await user.save();
-    }catch{
+    }catch(err){
+        console.log(err);
         return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({message: 'Invalid expression'});
     }
     res.status(StatusCodes.OK).json({message: 'Successfully saved'});
