@@ -19,13 +19,13 @@ const LoginForm = () => {
                     email, password
                 }).unwrap()
                     .then((response) => {
-                        dispatch(
-                            setCredentials({
-                                user: email,
-                                accessToken : response?.accessToken
-                            })
-                        );
                         setTimeout(() => {
+                            dispatch(
+                                setCredentials({
+                                    user: email,
+                                    accessToken: response?.accessToken
+                                })
+                            );
                             navigate('/');
                         }, 2000)
                     })
