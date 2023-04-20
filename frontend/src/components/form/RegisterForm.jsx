@@ -12,6 +12,11 @@ const RegisterForm = () => {
                 const formData = new FormData(e.target);
                 const email = formData.get('email');
                 const password = formData.get('password');
+                const confirmPassword = formData.get('confirm-password');
+                if(password !== confirmPassword){
+                    setRegistrationError('Passwords do not match');
+                    return;
+                }
                 await register({
                     email,password
                 }).unwrap()
