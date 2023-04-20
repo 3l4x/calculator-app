@@ -4,16 +4,14 @@ import CalculatorProvider from "../providers/CalculatorContext"
 import { Grid } from 'semantic-ui-react'
 const HomeScreen = () => {
   return (
-    <>
+    <CalculatorProvider>
       <Grid.Column style={{ maxWidth: 700 }}>
-        <CalculatorProvider>
-          <Calculator />
-        </CalculatorProvider>
+        <Calculator />
       </Grid.Column>
-      <Grid.Column  style={{ maxWidth: 350 }} >
-        <NumberManager/>
+      <Grid.Column style={{ maxWidth: 350 }} >
+        <NumberManager />
       </Grid.Column>
-    </>
+    </CalculatorProvider>
   )
 }
 
