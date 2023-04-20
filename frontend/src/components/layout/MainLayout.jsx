@@ -1,10 +1,11 @@
 import { Outlet } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react'
+import Header from '../common/Header';
 
 const MainLayout = () => {
     return (
         <>
-            <nav></nav>
+            <Header/>
             <main
                 style={{
                     height: '100vh',
