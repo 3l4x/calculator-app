@@ -30,7 +30,7 @@ const NumberManager = () => {
 
     //mutation
     const [postNumber, { isLoading }] = usePostNumberMutation({
-        refetchQuereies: [{query : useGetNumberQuery}]
+        refetchQueries: [{query : useGetNumberQuery}]
     });
 
     return (

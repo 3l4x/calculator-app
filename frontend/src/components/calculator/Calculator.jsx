@@ -8,7 +8,6 @@ const Calculator = () => {
         Calculator app
       </Header>
       <Form size='large'>
-        {/*I could use context here but its only 1 layer of propdrilling so its fine */}
         <Screen />
         <ButtonContainer />
       </Form>
